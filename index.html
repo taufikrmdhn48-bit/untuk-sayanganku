@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sayang</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+
+        <div id="login-screen" class="screen" style="display: flex;">
+            <div class="white-card">
+                <p class="cat-text">Hai sayangku ❤️
+                    <br> ayo tebak paswordnya
+                    <br> 🔒
+                </p>
+                <div class="pass-display">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dial-pad">
+                    <div class="num-btn" onclick="press(1)">1</div>
+                    <div class="num-btn" onclick="press(2)">2</div>
+                    <div class="num-btn" onclick="press(3)">3</div>
+                    <div class="num-btn" onclick="press(4)">4</div>
+                    <div class="num-btn" onclick="press(5)">5</div>
+                    <div class="num-btn" onclick="press(6)">6</div>
+                    <div class="num-btn" onclick="press(7)">7</div>
+                    <div class="num-btn" onclick="press(8)">8</div>
+                    <div class="num-btn" onclick="press(9)">9</div>
+                    <div class="num-btn" style="background:transparent; cursor:default; border:none; box-shadow:none;">
+                    </div>
+                    <div class="num-btn" onclick="press(0)">0</div>
+                    <div class="num-btn" onclick="clearInput()"
+                        style="background:#ffe5e5; color:#f5576c; border-color: #ffd0d0;">⌫</div>
+                </div>
+                <div class="clue-text">Clue: Ulang tahun dirimu</div>
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen">
+            <div class="white-card">
+                <p class="cat-text">Temukan gambar yang sama! 🎁</p>
+                <p style="font-size: 0.9rem; color: #a0aec0; margin-bottom: 15px;">
+                    Selesaikan dulu yaa biar bisa lanjut</p>
+                <div class="grid-container" id="game-grid"></div>
+            </div>
+        </div>
+
+        <div id="story-screen" class="screen scrollable-screen">
+            <h2 class="section-header">Perjalanan Kita 📖</h2>
+            <div class="story-card" id="story-card-content">
+                <div class="story-img-container"><img id="story-image" src="" class="story-img" alt="Kenangan"></div>
+                <div class="story-desc" id="story-desc">Deskripsi.</div>
+            </div>
+            <button class="btn-action" onclick="nextStory()">Lanjut ❤️</button>
+            <div style="height: 50px;"></div>
+        </div>
+
+        <div id="music-logo-screen" class="screen" style="justify-content: center;">
+            <div class="white-card" style="padding: 60px 40px;">
+                <div class="music-note">🎵</div>
+                <p style="margin-top: 24px; color: #667eea; font-weight: 600; font-size: 1.1rem;">Memuat Lagu Favorit...
+                </p>
+            </div>
+        </div>
+
+        <div id="music-selection-screen" class="screen scrollable-screen">
+            <div class="spotify-frame">
+                <div class="cover-art"><img src="images/album.jpg" alt="Cover"></div>
+                <div class="playlist-header">
+                    <h2
+                        style="color: white; text-align: center; font-size: 1.5rem; margin-bottom: 5px; font-weight: 600;">
+                        Birthday Playlist</h2>
+                    <p style="color: rgba(255,255,255,0.9); text-align: center; font-size: 0.85rem;">Spesial untuk
+                        dirimu
+                        ❤️ • 8 Lagu</p>
+                </div>
+                <div class="song-list">
+                    <div class="song-item" data-src="lirik1.mp3" onclick="selectSong(this)">
+                        <div class="song-number">1</div>
+                        <div class="song-info">
+                            <div class="song-title">Sempurna</div>
+                            <div class="song-artist">Andra & The Backbone</div>
+                        </div>
+                        <div class="song-controls"><button class="play-preview-btn"
+                                onclick="togglePreview(event, this)">▶</button></div>
+                        <div class="song-duration">--:--</div>
+                    </div>
+                    <div class="song-item" data-src="lirik2.mp3" onclick="selectSong(this)">
+                        <div class="song-number">2</div>
+                        <div class="song-info">
+                            <div class="song-title">Masa Ini, Nanti, dan Masa Depan</div>
+                            <div class="song-artist">Nuca</div>
+                        </div>
+                        <div class="song-controls"><button class="play-preview-btn"
+                                onclick="togglePreview(event, this)">▶</button></div>
+                        <div class="song-duration">--:--</div>
+                    </div>
+                    <div class="song-item" data-src="lirik3.mp3" onclick="selectSong(this)">
+                        <div class="song-number">3</div>
+                        <div class="song-info">
+                            <div class="song-title">Bergema Selamanya</div>
+                            <div class="song-artist">Nadhif Basalamah</div>
+                        </div>
+                        <div class="song-controls"><button class="play-preview-btn"
+                                onclick="togglePreview(event, this)">▶</button></div>
+                        <div class="song-duration">--:--</div>
+                    </div>
+                    <div class="song-item" data-src="lirik4.mp3" onclick="selectSong(this)">
+                        <div class="song-number">4</div>
+                        <div class="song-info">
+                            <div class="song-title">Penjaga Hati</div>
+                            <div class="song-artist">Nadhif Basalamah</div>
+                        </div>
+                        <div class="song-controls"><button class="play-preview-btn"
+                                onclick="togglePreview(event, this)">▶</button></div>
+                        <div class="song-duration">--:--</div>
+                    </div>
+                    <div class="song-item" data-src="lirik5.mp3" onclick="selectSong(this)">
+                        <div class="song-number">5</div>
+                        <div class="song-info">
+                            <div class="song-title">Favorite Girl</div>
+                            <div class="song-artist">Justin Bieber</div>
+                        </div>
+                        <div class="song-controls"><button class="play-preview-btn"
+                                onclick="togglePreview(event, this)">▶</button></div>
+                        <div class="song-duration">--:--</div>
+                    </div>
+                    <div class="song-item" data-src="lirik6.mp3" onclick="selectSong(this)">
+                        <div class="song-number">6</div>
+                        <div class="song-info">
+                            <div class="song-title">Baby</div>
+                            <div class="song-artist">Justin Bieber</div>
+                        </div>
+                        <div class="song-controls"><button class="play-preview-btn"
+                                onclick="togglePreview(event, this)">▶</button></div>
+                        <div class="song-duration">--:--</div>
+                    </div>
+                    <div class="song-item" data-src="lirik7.mp3" onclick="selectSong(this)">
+                        <div class="song-number">7</div>
+                        <div class="song-info">
+                            <div class="song-title">My Love</div>
+                            <div class="song-artist">Deondre</div>
+                        </div>
+                        <div class="song-controls"><button class="play-preview-btn"
+                                onclick="togglePreview(event, this)">▶</button></div>
+                        <div class="song-duration">--:--</div>
+                    </div>
+                    <div class="song-item" data-src="lirik8.mp3" onclick="selectSong(this)">
+                        <div class="song-number">8</div>
+                        <div class="song-info">
+                            <div class="song-title">I Love You 3000</div>
+                            <div class="song-artist">Stephanie Poetri</div>
+                        </div>
+                        <div class="song-controls"><button class="play-preview-btn"
+                                onclick="togglePreview(event, this)">▶</button></div>
+                        <div class="song-duration">--:--</div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-action" onclick="goToFinalTyping()">Lanjut Putar ▶</button>
+            <div style="height: 50px;"></div>
+        </div>
+
+        <div id="final-screen" class="screen scrollable-screen">
+            <h2 class="section-header">Untuk Kesayangaku... 💌</h2>
+            <div id="typing-box"><span id="typing-text"></span><span class="cursor"></span></div>
+
+            <div id="final-reveal">
+                <p style="margin-top:20px; color: #a0aec0; font-size:0.95rem;">klik love ini 👇</p>
+                <button class="love-btn-large" onclick="goToLoveGallery()">💖</button>
+            </div>
+
+            <div style="height: 100px;"></div>
+        </div>
+
+        <div id="love-gallery-screen" class="screen scrollable-screen">
+            <h2 class="section-header" style="font-size: 1.2rem; margin-bottom: 10px;">Terima Kasih Sayang ❤️</h2>
+
+            <div class="heart-grid">
+                <div class="heart-item pos-1"><img src="images/IMG1.jpg"></div>
+                <div class="heart-item pos-2"><img src="images/IMG2.jpg"></div>
+                <div class="heart-item pos-3"><img src="images/IMG3.jpg"></div>
+                <div class="heart-item pos-4"><img src="images/IMG4.jpg"></div>
+                <div class="heart-item pos-5"><img src="images/IMG5.jpg"></div>
+                <div class="heart-item pos-6"><img src="images/IMG6.jpg"></div>
+                <div class="heart-item pos-7"><img src="images/IMG7.jpg"></div>
+                <div class="heart-item pos-8"><img src="images/IMG8.jpg"></div>
+                <div class="heart-item pos-9"><img src="images/IMG9.jpg"></div>
+
+                <div class="heart-text-center">I LOVE YOU<br>MORE<br>SAYANGKU</div>
+
+                <div class="heart-item pos-10"><img src="images/IMG10.jpg"></div>
+                <div class="heart-item pos-11"><img src="images/IMG11.jpg"></div>
+                <div class="heart-item pos-12"><img src="images/IMG12.jpg"></div>
+                <div class="heart-item pos-13"><img src="images/IMG13.jpg"></div>
+                <div class="heart-item pos-14"><img src="images/IMG14.jpg"></div>
+                <div class="heart-item pos-15"><img src="images/IMG15.jpg"></div>
+            </div>
+
+            <p style="margin-top:20px; color:#a0aec0; font-size:0.9rem;">Forever & Always.</p>
+            <div style="height: 50px;"></div>
+        </div>
+
+    </div>
+
+    <div id="msg-1" class="overlay-screen">
+        <div class="message-card">
+            <img src="images/kucing2.gif" style="width: 140px; margin-bottom: 20px;">
+            <h1 style="margin-bottom: 10px; font-size: 2rem; color: #667eea;">Halo Sayangku ❤️</h1>
+            <p style="margin-bottom: 25px; color: #718096; font-size: 1rem;">
+                Akhirnya terbuka juga ya... <br>
+                Ada sesuatu spesial buat dirimu nih.
+            </p>
+
+            <button class="btn-action" onclick="nextStep(2)">Lanjut Sayang ❤️</button>
+        </div>
+    </div>
+
+    <div id="msg-2" class="overlay-screen">
+        <div class="message-card">
+            <h1 style="margin-bottom: 5px; font-size: 2rem; font-weight: 700; color: #667eea;">This Is For You</h1>
+            <div class="emoji-large">💌</div>
+            <h2 style="margin-bottom: 30px; font-size: 1.5rem; font-weight: 600;">My Favorite Person</h2>
+            <p style="margin-bottom: 20px; font-size: 1.1rem;">Bersedia untuk membuka?</p>
+            <div><button class="btn-action" onclick="finishHappy()">Ya</button><button class="btn-action btn-secondary"
+                    onclick="finishSad()">Tidak</button></div>
+        </div>
+    </div>
+
+    <div id="msg-sad" class="overlay-screen">
+        <div class="message-card">
+            <h1 style="font-size: 3rem;">😤</h1>
+            <h2 style="margin-top: 20px; font-size: 1.3rem;">Oh gitu ya sekarang,<br>cukup tau.</h2>
+            <button class="btn-action btn-secondary" style="margin-top:30px" onclick="retryChoice()">Ulangi</button>
+        </div>
+    </div>
+
+    <div id="msg-final" class="overlay-screen">
+        <div class="message-card">
+            <h1 style="font-size: 1.8rem; margin-bottom: 10px; color: #667eea;">A Big Hug for the Birthday Girl! 🎈</h1>
+            <p style="margin:20px 0; font-size: 1.05rem; line-height: 1.7;">Selamat ulang tahun untuk si cantik yang
+                tingkahnya selalu gemesin dan lucu. Dirimu adalah wanita tercantik dan wanita yang paling gemesin yang
+                pernah opik temui, sangkin
+                gemesnya rasanya tangan ini pengen mencet dirimu, pengen ngeremes dirimu, dan opik betul - betul
+                beruntung
+                banget bisa jadi pacar dirimu. Sebelum lanjut ke berikutnya, ingat ya kalau opik sayangggggg bangettttt
+                sama
+                dirimu! <br><b>Selamat ulang tahun ya bidadari cantikku!</b> ❤️</p>
+            <button class="btn-action" onclick="showCalendar()">Buka ❤️</button>
+        </div>
+    </div>
+
+    <div id="calendar-overlay" class="overlay-screen">
+        <div class="calendar-wrapper">
+            <div class="cal-header">February 2026</div>
+            <div class="cal-grid">
+                <div class="cal-day-name">Su</div>
+                <div class="cal-day-name">Mo</div>
+                <div class="cal-day-name">Tu</div>
+                <div class="cal-day-name">We</div>
+                <div class="cal-day-name">Th</div>
+                <div class="cal-day-name">Fr</div>
+                <div class="cal-day-name">Sa</div>
+                <div class="cal-date">1</div>
+                <div class="cal-date">2</div>
+                <div class="cal-date">3</div>
+                <div class="cal-date">4</div>
+                <div class="cal-date">5</div>
+                <div class="cal-date">6</div>
+                <div class="cal-date">7</div>
+                <div class="cal-date special">8</div>
+                <div class="cal-date">9</div>
+                <div class="cal-date">10</div>
+                <div class="cal-date">11</div>
+                <div class="cal-date">12</div>
+                <div class="cal-date">13</div>
+                <div class="cal-date">14</div>
+                <div class="cal-date">15</div>
+                <div class="cal-date">16</div>
+                <div class="cal-date">17</div>
+                <div class="cal-date">18</div>
+                <div class="cal-date">19</div>
+                <div class="cal-date">20</div>
+                <div class="cal-date">21</div>
+                <div class="cal-date">22</div>
+                <div class="cal-date">23</div>
+                <div class="cal-date">24</div>
+                <div class="cal-date">25</div>
+                <div class="cal-date">26</div>
+                <div class="cal-date">27</div>
+                <div class="cal-date">28</div>
+            </div>
+        </div>
+        <p style="margin-bottom:20px; font-size: 1.05rem; color: #4a5568;">Hari lahir seorang bidadari cantik... 👼</p>
+        <button class="btn-action" onclick="showMsg3()">Lanjut ❤️</button>
+    </div>
+
+    <div id="msg-3" class="overlay-screen">
+        <div class="message-card">
+            <h2 style="margin-bottom: 20px; text-align:center; font-size: 1.6rem; color: #667eea;">Sehat-sehat terus ya
+                sayang ❤️</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 30px; text-align:center;">Jangan lupa untuk selalu bersyukur.
+            </p>
+            <button class="btn-action" onclick="showMsg4()">Lanjut ❤️</button>
+        </div>
+    </div>
+
+    <div id="msg-4" class="overlay-screen">
+        <div class="message-card">
+            <h2 style="margin-bottom: 20px; text-align:center; font-size: 1.6rem; color: #667eea;">Ingattt... 🌹</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 30px; text-align:center;">Jangan lupa ucapkan terimakasih ke
+                diri sendiri, <br>karena udah kuat sampai saat ini.</p>
+            <button class="btn-action" onclick="showMsg5()">Lanjut ❤️</button>
+        </div>
+    </div>
+
+    <div id="msg-5" class="overlay-screen">
+        <div class="message-card">
+            <h2 style="margin-bottom: 20px; text-align:center; font-size: 1.6rem; color: #667eea;">Always Love Yourself
+                💖</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 30px; text-align:center; line-height: 1.7;">Apa pun yang terjadi
+                always love your self okeiiii. <br> Dirimu udah lakuin yang terbaik, be happy semangat terus ya
+                sayangkuuuuu.</p>
+            <button class="btn-action" onclick="startStoryMode()">Lanjut ❤️</button>
+        </div>
+    </div>
+
+    <div id="msg-opik" class="overlay-screen">
+        <div class="message-card">
+            <h2 style="margin-bottom: 20px; font-size: 1.5rem; color: #667eea;">💌 Pesan Untuk Gadis Cantik yang Sedang
+                Berulang Tahun</h2>
+            <p style="font-size: 1.05rem; margin-bottom: 30px; line-height: 1.8;">
+                Jangan lasak-lasak lagi yaa kalau lagi beraktivitas,
+                <br>Jangan bandel kalau dibilangin cowoknya,
+                <br>Jaga dirinya baik-baik di mana pun berada,
+                <br>Jaga pola makan dan kesehatannya,
+                <br>Jangan sering begadang yaa,
+                <br>Jangan pernah berubah,
+                <br>Sholatnya ditingkatkan lagi ya sayang, biar makin berkah.
+            </p>
+            <button class="btn-action" onclick="goToMusicLogo()">Lanjut 🎶</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        /* --- CONFIG CERITA FOTO (7 FOTO) --- */
+        // TITLE SUDAH DIHAPUS DARI TAMPILAN, TAPI DATA TETAP ADA AGAR TIDAK ERROR
+        const stories = [
+            { img: "images/IMG1.jpg", desc: "Dari sebuah bukti transfer sederhana untuk kepanitiaan, ga nyangka semesta mempertemukan opik dengan dirimu." },
+            { img: "images/IMG2.jpg", desc: "Opik bersyukur banget untuk semua momen yang kita lewati bersama sejak hari itu. Pelan-pelan, semuanya jadi sesuatu yang berharga buat opik." },
+            { img: "images/IMG3.jpg", desc: "Terima kasih sudah menjadi bagian dari hari-hari opik dan membuat semuanya terasa lebih istimewa" },
+            { img: "images/IMG4.jpg", desc: "Bersama dirimu, opik belajar bahwa kebahagiaan datang dari hal-hal paling sederhana" },
+            { img: "images/IMG5.jpg", desc: "Di balik senyuman dirimu, ada ketulusan dan keteguhan yang selalu opik kagumi." },
+            { img: "images/IMG6.jpg", desc: "Opik berharap semoga kita kedepannnya terus berjalan berdampingan, menciptakan cerita yang nantinya bakal kita kenang dengan penuh senyuman." },
+            { img: "images/IMG7.jpg", desc: "Terima kasih telah hadir, bertahan, dan menjadi bagian terpenting dalam hidup opik. Opik bersyukur banget bisa memiliki dirimu." }
+        ];
+
+        let currentStoryIndex = 0;
+        const CORRECT_PASS = "080204";
+        const FINAL_MESSAGE = "Haii sayangkuu 👋\n\nHari ini bukan sekadar tentang bertambahnya usia, tapi tentang perjalanan hidup yang sudah dirimu lewati dengan begitu banyak cerita di dalamnya. \n\nDi hari spesial ini, Opik ingin mengucapkan selamat ulang tahun untuk seseorang yang perlahan menjadi rumah dalam hidup Opik. \n\nTerima kasih karena sudah lahir ke dunia dan menjadi pribadi sebaik ini. Terima kasih karena sudah bertahan sejauh ini, melewati banyak hal dengan cara dirimu sendiri, dengan rasa sabar yang sering kali ga disadari. \n\nOpik bersyukur bisa mengenal dirimu, bisa berjalan bersama, dan menjadi bagian dari hidup dirimu. Kehadiran dirimu membawa ketenangan bagi opik, dan membuat hari-hari Opik terasa lebih berwarna. \n\nBersama dirimu, Opik belajar bahwa cinta ga selalu tentang hal besar, tapi tentang saling memahami, mendengarkan, dan tetap memilih satu sama lain. \n\nDi hari ulang tahun dirimu ini, Opik berdoa semoga dirimu selalu diberikan kesehatan, kekuatan, dan hati yang tenang. Semoga setiap langkah yang dirimu ambil ke depan selalu dimudahkan, setiap lelah diganti dengan kebahagiaan, dan setiap doa yang dirimu simpan pelan-pelan menemukan jalannya untuk terwujud. \n\nHarapan Opik sederhana. Semoga dirimu terus menjadi diri sendiri, tumbuh dengan versi terbaik, dan ga pernah kehilangan alasan untuk tersenyum, karena bagi opik senyuman dirimu membuat segalanya terasa lebih baik. Semoga mimpi-mimpi yang dirimu inginkan satu per satu tercapai, dan semoga hidup ini selalu memperlakukan dirimu dengan lebih lembut dari hari ke hari. \n\nDan kalau diperbolehkan berharap lebih, Opik ingin kita terus berjalan berdampingan. Menyusun cerita, menghadapi hari baik ataupun hari sulit bersama, saling menguatkan, dan saling memilih, bukan hanya hari ini aja, tapi juga di hari-hari yang akan datang. \n\nSekali lagi, selamat ulang tahun ya sayanggg.  Terima kasih telah hadir, bertahan, dan menjadi bagian terpenting dalam hidup Opik.\n\nSemoga tahun ini membawa banyak hal baik untuk dirimu, dan semoga Opik selalu bisa menjadi tempat pulang yang nyaman untuk dirimu. \n\nMaaf ya sayang kalau suprisenya cuma lewat web ini, tapi ini Opik buat sepenuh hati buat dirimu.\n\nI Love You So Much! ❤️💐\n\n- Opik -";
+
+        let currentInput = "";
+        const dots = document.querySelectorAll('.dot');
+
+        /* --- PASSWORD LOGIC --- */
+        function press(num) { if (currentInput.length < 6) { currentInput += num; updateDots(); if (currentInput.length === 6) setTimeout(checkPassword, 300); } }
+        function clearInput() { currentInput = currentInput.slice(0, -1); updateDots(); }
+        function updateDots() { dots.forEach((dot, idx) => dot.classList.toggle('filled', idx < currentInput.length)); }
+        function checkPassword() {
+            if (currentInput === CORRECT_PASS) { switchScreen('login-screen', 'game-screen'); initGame(); }
+            else { const s = document.getElementById('login-screen'); s.classList.add('shake'); setTimeout(() => { s.classList.remove('shake'); currentInput = ""; updateDots(); }, 500); }
+        }
+
+        /* --- GAME LOGIC --- */
+        const cardItems = ['🍰', '💌', '🌹', '🧸', '💍', '💖']; let cards = [...cardItems, ...cardItems], flippedCards = [], matchedPairs = 0;
+        function initGame() {
+            const grid = document.getElementById('game-grid'); grid.innerHTML = '';
+            cards.sort(() => Math.random() - 0.5);
+            cards.forEach(item => {
+                const c = document.createElement('div'); c.classList.add('card');
+                c.innerHTML = `<div class="card-inner"><div class="card-front">?</div><div class="card-back">${item}</div></div>`;
+                c.addEventListener('click', () => flipCard(c, item)); grid.appendChild(c);
+            });
+        }
+        function flipCard(card, val) {
+            if (card.classList.contains('flipped') || flippedCards.length >= 2) return;
+            card.classList.add('flipped'); flippedCards.push({ card, val });
+            if (flippedCards.length === 2) setTimeout(checkMatch, 800);
+        }
+        function checkMatch() {
+            const [c1, c2] = flippedCards;
+            if (c1.val === c2.val) {
+                matchedPairs++;
+                if (matchedPairs === cardItems.length) {
+                    setTimeout(() => {
+                        document.getElementById('game-screen').style.display = 'none';
+                        document.getElementById('msg-1').style.display = 'flex';
+                    }, 500);
+                }
+            } else { c1.card.classList.remove('flipped'); c2.card.classList.remove('flipped'); }
+            flippedCards = [];
+        }
+
+        /* --- FLOW NAVIGATION --- */
+        function nextStep(s) { if (s === 2) { document.getElementById('msg-1').style.display = 'none'; document.getElementById('msg-2').style.display = 'flex'; } }
+        function finishSad() { document.getElementById('msg-2').style.display = 'none'; document.getElementById('msg-sad').style.display = 'flex'; }
+        function retryChoice() { document.getElementById('msg-sad').style.display = 'none'; document.getElementById('msg-2').style.display = 'flex'; }
+        function finishHappy() { document.getElementById('msg-2').style.display = 'none'; document.getElementById('msg-final').style.display = 'flex'; fireConfetti(); }
+        function showCalendar() { document.getElementById('msg-final').style.display = 'none'; document.getElementById('calendar-overlay').style.display = 'flex'; }
+        function showMsg3() { document.getElementById('calendar-overlay').style.display = 'none'; document.getElementById('msg-3').style.display = 'flex'; }
+        function showMsg4() { document.getElementById('msg-3').style.display = 'none'; document.getElementById('msg-4').style.display = 'flex'; }
+        function showMsg5() { document.getElementById('msg-4').style.display = 'none'; document.getElementById('msg-5').style.display = 'flex'; }
+        function showOpikMsg() { document.getElementById('story-screen').style.display = 'none'; document.getElementById('msg-opik').style.display = 'flex'; }
+
+        function startStoryMode() {
+            document.getElementById('msg-5').style.display = 'none';
+            switchScreen('game-screen', 'story-screen');
+            currentStoryIndex = 0; renderStory();
+        }
+        function renderStory() {
+            const data = stories[currentStoryIndex];
+            const imgEl = document.getElementById('story-image');
+            // REMOVED TITLE ELEMENT REFERENCE
+            const descEl = document.getElementById('story-desc');
+            const cardEl = document.getElementById('story-card-content');
+            cardEl.classList.remove('fade-in-anim'); void cardEl.offsetWidth; cardEl.classList.add('fade-in-anim');
+            imgEl.src = data.img;
+            // REMOVED TITLE UPDATE
+            descEl.textContent = data.desc;
+        }
+        function nextStory() {
+            currentStoryIndex++;
+            if (currentStoryIndex < stories.length) { renderStory(); } else { showOpikMsg(); }
+        }
+        function goToMusicLogo() {
+            document.getElementById('msg-opik').style.display = 'none';
+            document.getElementById('music-logo-screen').style.display = 'flex';
+            setTimeout(() => { switchScreen('music-logo-screen', 'music-selection-screen'); }, 4000);
+        }
+
+        /* --- MUSIC LOGIC --- */
+        let selectedSongUrl = "lirik1.mp3";
+        function selectSong(el) {
+            const src = el.dataset.src;
+            if (!src) return;
+            document.querySelectorAll('.song-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+            selectedSongUrl = src.startsWith('http') ? src : 'audio/' + src;
+        }
+        function togglePreview(event, btn) {
+            event.stopPropagation();
+            const row = btn.closest('.song-item');
+            const srcRaw = row.dataset.src;
+            const audio = document.getElementById('bg-music');
+            const isPlaying = btn.textContent === '■';
+            document.querySelectorAll('.play-preview-btn').forEach(b => b.textContent = '▶');
+            if (isPlaying) { audio.pause(); audio.currentTime = 0; btn.textContent = '▶'; }
+            else {
+                const url = srcRaw.startsWith('http') ? srcRaw : 'audio/' + srcRaw;
+                audio.src = url; audio.play().catch(e => console.log(e));
+                btn.textContent = '■'; selectSong(row);
+            }
+        }
+        function initSongDurations() {
+            document.querySelectorAll('.song-item').forEach(item => {
+                const src = item.dataset.src ? (item.dataset.src.startsWith('http') ? item.dataset.src : 'audio/' + item.dataset.src) : null;
+                const durEl = item.querySelector('.song-duration');
+                if (!src || !durEl) return;
+                const a = new Audio(); a.src = src;
+                a.addEventListener('loadedmetadata', () => {
+                    const mins = Math.floor(a.duration / 60);
+                    const secs = Math.floor(a.duration % 60).toString().padStart(2, '0');
+                    durEl.textContent = `${mins}:${secs}`;
+                });
+            });
+        }
+
+        function goToFinalTyping() {
+            const audio = document.getElementById('bg-music');
+            audio.pause();
+            switchScreen('music-selection-screen', 'final-screen');
+            audio.src = selectedSongUrl;
+            audio.play().catch(err => console.warn('Audio play failed:', err));
+            typeWriter(); setInterval(fireHearts, 300);
+        }
+
+        /* --- TYPING LOGIC --- */
+        let typeIndex = 0;
+        function typeWriter() {
+            if (typeIndex < FINAL_MESSAGE.length) {
+                document.getElementById("typing-text").innerHTML += FINAL_MESSAGE.charAt(typeIndex) === '\n' ? '<br>' : FINAL_MESSAGE.charAt(typeIndex);
+                typeIndex++; setTimeout(typeWriter, 50);
+            } else {
+                // TAMPILKAN TOMBOL LOVE SETELAH SELESAI
+                document.getElementById('final-reveal').style.display = 'block';
+            }
+        }
+
+        /* --- NEW: GO TO LOVE GALLERY --- */
+        function goToLoveGallery() {
+            switchScreen('final-screen', 'love-gallery-screen');
+            fireConfetti();
+        }
+
+        function switchScreen(h, s) { document.getElementById(h).style.display = 'none'; document.getElementById(s).style.display = 'flex'; }
+        function fireConfetti() { const end = Date.now() + 3000; (function frame() { confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } }); confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } }); if (Date.now() < end) requestAnimationFrame(frame); }()); }
+        function fireHearts() { confetti({ particleCount: 2, angle: 90, spread: 360, startVelocity: 20, origin: { x: Math.random(), y: 0 }, shapes: ['heart'], colors: ['#667eea', '#764ba2', '#a8b2ff'] }); }
+
+        if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initSongDurations); } else { initSongDurations(); }
+    </script>
+</body>
+
+</html>
