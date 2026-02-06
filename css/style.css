@@ -4,11 +4,13 @@
     margin: 0;
     padding: 0;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: #ffffff;
+    background: #f0f2f5;
+    /* Sedikit abu-abu agar kontras dgn kartu */
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -21,13 +23,27 @@ body {
 .container {
     width: 100%;
     max-width: 420px;
-    height: 100vh;
-    padding: 20px;
+    height: 100dvh;
+    /* Menggunakan dynamic viewport height */
+    padding: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
+    background: #ffffff;
+    /* Background putih untuk simulasi mobile app */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Di Laptop, container akan terlihat seperti HP di tengah layar */
+@media (min-width: 450px) {
+    .container {
+        height: 90vh;
+        max-height: 850px;
+        border-radius: 30px;
+        border: 8px solid #f0f2f5;
+    }
 }
 
 .screen {
@@ -35,14 +51,19 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 100%;
+    justify-content: center;
+    /* Center content vertically */
     animation: fadeIn 0.6s ease-out;
 }
 
 .scrollable-screen {
     justify-content: flex-start;
-    padding-top: 50px;
+    padding-top: 30px;
+    padding-bottom: 50px;
     overflow-y: auto;
     height: 100%;
+    width: 100%;
     scrollbar-width: none;
     scroll-behavior: smooth;
 }
@@ -51,14 +72,13 @@ body {
     display: none;
 }
 
-/* --- WHITE CARD FRAME --- */
+/* --- WHITE CARD FRAME (Untuk elemen di dalam container) --- */
 .white-card {
     background: #ffffff;
     border-radius: 24px;
-    padding: 32px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    padding: 25px 20px;
     width: 100%;
-    max-width: 380px;
+    /* Hapus shadow berat di dalam mobile view agar bersih */
 }
 
 /* --- DIAL PAD --- */
@@ -66,23 +86,23 @@ body {
     font-size: 1rem;
     font-weight: 500;
     color: #667eea;
-    margin-bottom: 30px;
-    background: #ffffff;
-    padding: 12px 24px;
-    border-radius: 30px;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+    margin-bottom: 20px;
+    background: #f7fafc;
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: inline-block;
 }
 
 .pass-display {
     display: flex;
-    gap: 14px;
-    margin-bottom: 35px;
+    gap: 12px;
+    margin-bottom: 25px;
     justify-content: center;
 }
 
 .dot {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     border: 2px solid #cbd5e0;
     transition: all 0.3s ease;
@@ -92,64 +112,74 @@ body {
 .dot.filled {
     background: #667eea;
     border-color: #667eea;
-    box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.4);
 }
 
 .dial-pad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 15px;
     margin-bottom: 20px;
+    width: 100%;
+    max-width: 300px;
+    /* Batasi lebar agar rapi */
 }
 
 .num-btn {
-    width: 70px;
-    height: 70px;
+    width: 100%;
+    /* Full width of grid cell */
+    aspect-ratio: 1/1;
+    /* Tetap bulat */
+    max-width: 70px;
+    max-height: 70px;
     background: #ffffff;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 500;
     color: #667eea;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
-    border: 2px solid #f7fafc;
-}
-
-.num-btn:hover {
-    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.2);
-    transform: translateY(-2px);
-    border-color: #667eea;
+    border: 1px solid #edf2f7;
+    margin: 0 auto;
 }
 
 .num-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.9);
+    background: #f7fafc;
 }
 
 .clue-text {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #a0aec0;
-    margin-top: 12px;
-    font-weight: 400;
+    margin-top: 10px;
 }
 
 /* --- GAME CARDS --- */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 10px;
     width: 100%;
-    max-width: 350px;
+    max-width: 340px;
     margin-top: 10px;
 }
 
 .card {
-    height: 95px;
+    height: 90px;
+    /* Sedikit lebih kecil untuk HP */
     perspective: 1000px;
     cursor: pointer;
+}
+
+/* Agar kartu responsif di layar sangat kecil */
+@media (max-width: 360px) {
+    .card {
+        height: 75px;
+    }
 }
 
 .card-inner {
@@ -169,13 +199,13 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 16px;
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.2rem;
+    font-size: 2rem;
     backface-visibility: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .card-front {
@@ -187,19 +217,19 @@ body {
 .card-back {
     background: white;
     transform: rotateY(180deg);
+    border: 2px solid #e2e8f0;
 }
 
 /* --- STORY MODE STYLE --- */
 .story-card {
     background: white;
-    padding: 28px;
-    border-radius: 24px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     width: 100%;
-    max-width: 360px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     text-align: center;
-    transition: transform 0.3s ease;
+    border: 1px solid #f0f0f0;
 }
 
 .fade-in-anim {
@@ -220,12 +250,13 @@ body {
 
 .story-img-container {
     width: 100%;
-    height: 260px;
+    height: auto;
+    aspect-ratio: 4/5;
+    /* Rasio potrait yang bagus di HP */
     border-radius: 16px;
     overflow: hidden;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
     background: #f7fafc;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .story-img {
@@ -234,44 +265,40 @@ body {
     object-fit: cover;
 }
 
-/* Judul dihapus dari CSS karena tidak dipakai lagi */
-
 .story-desc {
     font-weight: 400;
-    font-size: 1rem;
-    /* Sedikit diperbesar agar lebih jelas */
+    font-size: 0.95rem;
     color: #4a5568;
-    line-height: 1.7;
+    line-height: 1.6;
     margin-bottom: 5px;
 }
 
 /* --- MUSIC PLAYER --- */
 .music-note {
-    font-size: 5rem;
+    font-size: 4rem;
     color: #667eea;
     animation: bounce 1.2s infinite alternate;
-    filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.2));
 }
 
 .spotify-frame {
     width: 100%;
     background: #ffffff;
     color: #2d3748;
-    padding: 28px;
-    border-radius: 24px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     text-align: left;
     margin-bottom: 20px;
-    border: 1px solid #f7fafc;
+    border: 1px solid #edf2f7;
 }
 
 .cover-art {
-    width: 190px;
-    height: 190px;
+    width: 160px;
+    height: 160px;
     background: #f7fafc;
-    margin: 0 auto 24px auto;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    margin: 0 auto 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
@@ -283,62 +310,41 @@ body {
 
 .playlist-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 20px;
-    border-radius: 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
 }
 
 .song-list {
-    max-height: 280px;
+    max-height: 250px;
     overflow-y: auto;
-    margin-top: 12px;
-    padding-right: 8px;
-}
-
-.song-list::-webkit-scrollbar {
-    width: 5px;
-}
-
-.song-list::-webkit-scrollbar-track {
-    background: #f7fafc;
-    border-radius: 4px;
-}
-
-.song-list::-webkit-scrollbar-thumb {
-    background: #667eea;
-    border-radius: 4px;
+    margin-top: 10px;
+    padding-right: 5px;
 }
 
 .song-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 14px;
-    border-radius: 12px;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
     margin-bottom: 6px;
-    background: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.song-item:hover {
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
-    transform: translateY(-2px);
+    background: #f8fafc;
 }
 
 .song-item.active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+    background: #ebf4ff;
+    border: 1px solid #667eea;
 }
 
 .song-number {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #a0aec0;
-    width: 24px;
+    width: 20px;
     text-align: center;
-    font-weight: 500;
 }
 
 .song-item.active .song-number {
@@ -352,7 +358,7 @@ body {
 }
 
 .song-title {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #2d3748;
     white-space: nowrap;
@@ -360,19 +366,14 @@ body {
     text-overflow: ellipsis;
 }
 
-.song-item.active .song-title {
-    color: #667eea;
-}
-
 .song-artist {
-    font-size: 0.75rem;
-    color: #a0aec0;
-    font-weight: 400;
+    font-size: 0.7rem;
+    color: #718096;
 }
 
 .song-controls {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
 }
 
@@ -380,45 +381,41 @@ body {
     background: #ffffff;
     border: 1.5px solid #667eea;
     color: #667eea;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
 }
 
 .play-preview-btn:hover {
     background: #667eea;
     color: white;
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .song-duration {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #a0aec0;
-    min-width: 38px;
+    min-width: 35px;
     text-align: right;
 }
 
 /* --- FINAL TYPING --- */
 #typing-box {
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.6;
     text-align: left;
     background: white;
-    padding: 32px;
-    border-radius: 24px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    padding: 25px 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     width: 100%;
-    max-width: 380px;
     margin-bottom: 20px;
-    position: relative;
+    border: 1px solid #edf2f7;
 }
 
 #typing-text {
@@ -435,10 +432,9 @@ body {
     vertical-align: bottom;
 }
 
-/* --- NEW: FINAL REVEAL BUTTON --- */
+/* --- FINAL REVEAL --- */
 #final-reveal {
     display: none;
-    /* Hidden awalnya */
     margin-top: 20px;
     animation: fadeIn 1s;
 }
@@ -447,12 +443,12 @@ body {
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
     color: white;
     font-size: 2rem;
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    box-shadow: 0 10px 25px rgba(255, 154, 158, 0.5);
+    box-shadow: 0 8px 20px rgba(255, 154, 158, 0.5);
     animation: bounce 2s infinite;
     display: flex;
     justify-content: center;
@@ -460,21 +456,19 @@ body {
     margin: 10px auto;
 }
 
-/* --- NEW: LOVE GALLERY GRID --- */
+/* --- LOVE GALLERY GRID --- */
 .heart-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 6px;
+    gap: 4px;
     width: 100%;
-    max-width: 360px;
     margin: 20px auto;
 }
 
 .heart-item {
     aspect-ratio: 1/1;
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     background: #ffe5e5;
 }
 
@@ -484,7 +478,7 @@ body {
     object-fit: cover;
 }
 
-/* Grid Positions for Heart Shape */
+/* Grid Position Logic (Same as before) */
 .pos-1 {
     grid-column: 2;
     grid-row: 1;
@@ -530,7 +524,6 @@ body {
     grid-row: 3;
 }
 
-/* Center text */
 .heart-text-center {
     grid-column: 3;
     grid-row: 3;
@@ -540,11 +533,10 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     font-weight: bold;
     padding: 2px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(255, 107, 129, 0.4);
+    border-radius: 6px;
     line-height: 1.1;
 }
 
@@ -581,42 +573,40 @@ body {
 /* --- CALENDAR --- */
 .calendar-wrapper {
     background: white;
-    border-radius: 24px;
-    padding: 24px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 340px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .cal-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 16px;
-    border-radius: 16px;
+    padding: 12px;
+    border-radius: 12px;
     font-weight: 600;
-    font-size: 1.25rem;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+    font-size: 1.1rem;
+    margin-bottom: 12px;
 }
 
 .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
+    gap: 4px;
     text-align: center;
 }
 
 .cal-day-name {
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #a0aec0;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 .cal-date {
-    font-size: 0.9rem;
-    padding: 10px;
+    font-size: 0.85rem;
+    padding: 8px;
     border-radius: 50%;
     cursor: default;
     color: #4a5568;
@@ -627,7 +617,6 @@ body {
     color: white;
     font-weight: 700;
     animation: pulse-date 1.8s infinite;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 /* --- OVERLAY & BTN --- */
@@ -637,90 +626,133 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.98);
+    /* Lebih solid */
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 100;
-    padding: 40px;
-    animation: fadeIn 0.6s ease-out;
+    padding: 20px;
+    animation: fadeIn 0.5s ease-out;
 }
 
 .message-card {
     background: white;
-    padding: 36px;
+    padding: 30px 20px;
     border-radius: 24px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    max-width: 520px;
-    margin: 20px;
+    width: 100%;
+    max-width: 380px;
+    margin: 0;
 }
 
 .emoji-large {
-    font-size: 5rem;
-    margin: 20px 0;
+    font-size: 4rem;
+    margin: 15px 0;
     animation: bounce 2s infinite;
 }
 
 .section-header {
     color: #667eea;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .btn-action {
-    padding: 14px 36px;
+    padding: 12px 30px;
     border-radius: 50px;
     border: none;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
     transition: all 0.3s ease;
-    margin-top: 20px;
-}
-
-.btn-action:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+    margin-top: 15px;
+    width: auto;
+    min-width: 140px;
 }
 
 .btn-action:active {
-    transform: scale(0.98);
+    transform: scale(0.95);
 }
 
 .btn-secondary {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    margin-left: 12px;
+    margin-left: 10px;
 }
 
-.btn-secondary:hover {
-    box-shadow: 0 12px 35px rgba(245, 87, 108, 0.4);
+/* --- MEDIA QUERIES UNTUK RESPONSIVENESS --- */
+/* Untuk layar HP Kecil (misal iPhone SE, Android kecil) */
+@media (max-width: 380px) {
+    .container {
+        padding: 10px;
+    }
+
+    .white-card,
+    .message-card {
+        padding: 20px 15px;
+    }
+
+    .num-btn {
+        max-width: 60px;
+        max-height: 60px;
+        font-size: 1.2rem;
+    }
+
+    .cat-text {
+        font-size: 0.9rem;
+    }
+
+    .story-img-container {
+        height: 220px;
+    }
+
+    .emoji-large {
+        font-size: 3.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem !important;
+    }
+
+    h2 {
+        font-size: 1.2rem !important;
+    }
+
+    p {
+        font-size: 0.9rem !important;
+    }
 }
 
-@keyframes shake {
-
-    0%,
-    100% {
-        transform: translateX(0);
+/* Untuk layar HP yang pendek */
+@media (max-height: 700px) {
+    .container {
+        padding-top: 5px;
     }
 
-    25% {
-        transform: translateX(-10px);
+    .pass-display {
+        margin-bottom: 15px;
     }
 
-    75% {
-        transform: translateX(10px);
+    .dial-pad {
+        margin-bottom: 10px;
+        gap: 10px;
+    }
+
+    .cat-text {
+        margin-bottom: 15px;
     }
 }
 
+/* Animasi standar */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
 
     to {
@@ -730,12 +762,14 @@ body {
 }
 
 @keyframes bounce {
-    from {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
 
-    to {
-        transform: translateY(-20px);
+    50% {
+        transform: translateY(-15px);
     }
 }
 
@@ -752,15 +786,29 @@ body {
 }
 
 @keyframes pulse-date {
-    0% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
 
     50% {
         transform: scale(1.15);
     }
+}
 
+@keyframes shake {
+
+    0%,
     100% {
-        transform: scale(1);
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
     }
 }
